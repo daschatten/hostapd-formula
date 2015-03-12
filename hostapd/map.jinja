@@ -1,0 +1,13 @@
+{% set map = salt['grains.filter_by']({
+    'Debian': {
+        'pkgs': ['hostapd', 'iw', 'wireless-tools'],
+        'realtek_pkgs': ['firmware-realtek'],
+        'atheros_pkgs': ['firmware-atheros'],
+        'service': 'hostapd',
+        'conf_dir': '/etc/hostapd',
+        'conf_file': 'hostapd.conf',
+        'user': 'root',
+        'group': 'root',
+        'mode': '644'
+    },
+}, grain='os', merge=salt['pillar.get']('hostapd:lookup')) %}

@@ -1,0 +1,20 @@
+{%- for card_iface, card_data in salt['pillar.get']('hostapd:cardlist', {}).iteritems() %}
+interface={{ card_iface }}
+hw_mode={{ card_data.get('hw_mode', 'g') }}
+channel={{ card_data.get('channel', '10') }}
+ieee80211d={{ card_data.get('ieee80211d', '1') }}
+country_code={{ card_data.get('country_code', 'DE') }}
+ieee80211n={{ card_data.get('ieee80211n', '1') }}
+wmm_enabled={{ card_data.get('wmm_enabled', '1') }}
+  {%- for ap_name, ap_data in card_data.get('ap_list', {}).iteritems() %}
+    {%- if ap_data.bss is defined %}
+bss={{ ap_data.bss }} 
+    {%- endif %}
+ssid={{ ap_name }}
+auth_algs={{ ap_data.get('auth_algs', '1') }}
+wpa={{ ap_data.get('wpa', '2') }}
+wpa_key_mgmt={{ ap_data.get('wpa_key_mgmt', 'WPA-PSK') }}
+rsn_pairwise={{ ap_data.get('rsn_pairwise', 'CCMP') }}
+wpa_passphrase={{ ap_data.get('wpa_passphrase', '') }}
+  {%- endfor %}
+{%- endfor %}
