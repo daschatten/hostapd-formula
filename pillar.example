@@ -5,6 +5,7 @@
 hostapd:
   cardlist:
     wlan0:                      # the interface used by the AP
+      bridge: br0
       hw_mode: g                 # g simply means 2.4GHz
       channel: 10               # the channel to use
       ieee80211d: 1             # limit the frequencies used to those allowed in the country
@@ -20,6 +21,7 @@ hostapd:
           wpa_passphrase: mysupersecretkey
         myssid2:  
           bss: wlan1            # the name of the new interface hostapd will create to handle this AP 
+          bridge: br0
           auth_algs: 1          # 1=wpa, 2=wep, 3=both
           wpa: 1                # WPA1 only
           wpa_key_mgmt: WPA-PSK 

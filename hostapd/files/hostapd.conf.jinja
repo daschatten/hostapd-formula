@@ -1,5 +1,8 @@
 {%- for card_iface, card_data in salt['pillar.get']('hostapd:cardlist', {}).iteritems() %}
 interface={{ card_iface }}
+{%- if card_data.bridge is defined %}
+bridge={{ card_data.bridge }}
+{%- endif %}
 hw_mode={{ card_data.get('hw_mode', 'g') }}
 channel={{ card_data.get('channel', '10') }}
 ieee80211d={{ card_data.get('ieee80211d', '1') }}
@@ -10,6 +13,9 @@ wmm_enabled={{ card_data.get('wmm_enabled', '1') }}
     {%- if ap_data.bss is defined %}
 bss={{ ap_data.bss }} 
     {%- endif %}
+{%- if ap_data.bridge is defined %}
+bridge={{ ap_data.bridge }}
+{%- endif %}
 ssid={{ ap_name }}
 auth_algs={{ ap_data.get('auth_algs', '1') }}
 wpa={{ ap_data.get('wpa', '2') }}
