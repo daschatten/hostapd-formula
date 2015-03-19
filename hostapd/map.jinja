@@ -8,6 +8,7 @@
         'conf_file': 'hostapd.conf',
         'user': 'root',
         'group': 'root',
-        'mode': '644'
+        'mode': '644',
+        'defaults_file': '/etc/default/hostapd',
     },
 }, grain='os', merge=salt['pillar.get']('hostapd:lookup')) %}

@@ -10,6 +10,13 @@ hostapd_pkgs:
       - {{ pkg }}
       {% endfor %}
 
+{%- if map.defaults_file is defined %}
+hostapd_activate:
+  file.append:
+    - name: {{ map.defaults_file }}
+    - text: DAEMON_CONF="{{ map.conf_dir }}/{{ map.conf_file }}"  
+{%- endif %}      
+
 # Ensure ssh service is running and autostart is enabled
 hostapd_service:
   service.running:
